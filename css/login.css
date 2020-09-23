@@ -1,0 +1,30 @@
+.login_container {
+    height: 100vh;
+    display: flex;
+    background-image: url(../img/a.jpg);
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+
+}
+.login_container .login_header {
+    font-weight: 600;
+    font-size :35px;
+    text-align: center;
+    color: blueviolet;
+    font-family: 'Grandstander', cursive;
+
+}
+.login_container #login_form {
+    background-color: white;
+    height : 50vh;
+    width :25%;
+    padding : 50px 15px;
+}
+@media screen and (max-width : 768px) {
+    .login_container #login_form {
+        width : 100%;
+        height : 100vh;
+    }
+
+}

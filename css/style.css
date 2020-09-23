@@ -1,0 +1,30 @@
+*{
+    margin: 0px ;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.input_wrapper input {
+    padding : 10px 20px;
+    border-radius: 5px;
+    border: solid 1px #dbdbdb;
+    margin : 10px 0px;
+    width :100%;
+}
+.form_action {
+    display: flex;
+    justify-content: space-between;
+    align-items : center;
+    margin:10px;
+}
+.btn {
+    background-color: #42b72a;
+    color: white;
+    padding : 7px 10px;
+    border-radius: 5px;
+}
+.error {
+    color: red;
+}
+.cursor_pointer {
+    cursor: pointer;
+}

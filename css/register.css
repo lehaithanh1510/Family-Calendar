@@ -1,0 +1,28 @@
+.register_container {
+    background-image: url(../img/background2.jpg);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+}
+.register_container #register_form {
+    height:75vh;
+    width: 30%;
+    background: white;
+    padding: 50px 15px;
+}
+.register_container #register_form .register_header {
+    font-size: 35px;
+    text-align: center;
+    font-weight: 600;
+    color: blueviolet;
+    font-family: 'Grandstander', cursive;
+}
+@media screen and (max-width : 768px) {
+    .register_container #register_form {
+        width: 100%;
+        height :100vh;
+
+    }
+}
