@@ -3,12 +3,25 @@
 }
 .timeline_container .header {
     height: 60px;
+    display: flex;
     background-color: #ffffff;
     color: blueviolet;
-    text-align: center;
-    line-height: 60px;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
     font-weight: 600;
+    position: relative;
+     
+}
+.timeline_container .header .log_out {
+    position: absolute;
+    right :1%;
+    width: 2.5%;
+    height: 50%;
+    background-color: blueviolet;
+    color: white;
+    display: flex;
+    align-items: center;
 }
 .timeline_container .main {
     height: calc(100vh - 65px);
@@ -32,6 +45,7 @@
 .create_event button {
     padding : 10px 25px;
     font-size: 15px;
+     
     border-radius: 50px;
 
 }
@@ -72,7 +86,7 @@
     justify-content: flex-end;
     align-items: center;
 }
-.calendar .month_navigation .month {
+.calendar .month_navigation #month_header {
     position: absolute;
     left: 1%;
 }
@@ -85,9 +99,18 @@
     margin-top: 10px;
 }
 .days_wrapper .days_of_week {
-padding : 0px 10px 10px 0px; 
-text-align: center;   
+    padding : 4px ;
+    text-align: center;
+     
 
+}
+.days_wrapper .today {
+    background-color :  #007cfd ;
+    width : 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #ffffff;
+     
 }
 .timeline_detail .user_navigation {
     display: flex;
@@ -102,7 +125,7 @@ text-align: center;
     right :1%;
     
 }
-.timeline_detail .date_navigation {
+.timeline_detail .date_header {
     border : 1px solid #dbdbdb ;
     width : 100%;
     height: 10vh; 
@@ -110,11 +133,12 @@ text-align: center;
     align-items: center;
     display: flex;
 }
-.timeline_detail .date_navigation .date {
+.timeline_detail .date_header .date {
     margin: 0px 15px;
     font-size: 20px;
+     
 }
-.timeline_detail .date_navigation button {
+.timeline_detail .date_header button {
     background: transparent;
     border: white;
     font-size: 25px;
@@ -124,24 +148,74 @@ text-align: center;
     height: 10vh;
     /* border: red 1px solid ; */
     font-size: 20px;
+     
     color: black;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
 }
+.timeline_detail .family_list_timeline {
+    overflow-y:auto;
+}
 .timeline_detail .family_list_timeline .timeline_wrapper {
     display: flex;
+    border-bottom: 1px solid #dbdbdb;
+    align-items: center;
+
+
 }
 .timeline_detail .family_list_timeline .timeline_wrapper .time {
     width :7%;
     text-align: center;
     border-right: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
     padding :10px; 
+     
 }
 .timeline_detail .family_list_timeline .timeline_wrapper .content {
     padding :10px; 
-    border-bottom: 1px solid #dbdbdb;
-    width: 100%; 
+    width: 90%; 
+    word-break: break-all;
+}
+.timeline_detail .family_list_timeline .timeline_wrapper button {
+    width :10px;
+    height: 10px;
+}
+.create_event_form{
+    position: absolute;
+    padding: 10px 10px 10px 30px;
+    background-color: #dbdbdb;
+    top:20vh;
+    left: 35%;
+    opacity: 1;
+    width :30%;
+    display: none;
+}
+.create_event_form .time_wrapper {
+    display: flex;
+}
+.create_event_form .time_wrapper input {
+    width : 90%;
+}
+.create_event_form  .basic_icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.create_event_form .work {
+    padding: 0px 0px 0px 25px;
+}
+.create_event_form .description_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.create_event_form .description_wrapper input {
+    width :165%;
+    height : 15vh;
+}
+.create_event_form .cancel {
+    background-color: red;
+    color: white;
+    padding : 7px 10px;
+    border-radius: 5px;
 }

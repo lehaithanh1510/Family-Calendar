@@ -11,7 +11,6 @@ window.onload = () => {
   firebase.initializeApp(firebaseConfig);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.log(user)
       model.currentUser = {
         email: user.email,
         displayName: user.displayName
@@ -27,6 +26,5 @@ window.onload = () => {
       }
     }
   })
-  console.log(firebase.app())
   view.setActiveScreen('loginPage')
 }

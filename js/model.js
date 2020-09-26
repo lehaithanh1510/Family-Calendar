@@ -48,5 +48,9 @@ model.logIn = async (data) => {
 
         }
     }
-
+}
+model.logOut = async () => {
+    console.log('haha')
+    await firebase.auth().signOut()
+    view.setActiveScreen('loginPage')
 }
