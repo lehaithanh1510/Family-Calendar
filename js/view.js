@@ -41,7 +41,7 @@ view.setActiveScreen = (page) => {
                 view.setActiveScreen('createRoomPage')
             })
             model.getRooms()
-            model.listenRoomChange()
+            // model.listenRoomChange()
              break;    
          case "createRoomPage" :
              document.getElementById('app').innerHTML = component.createRoomPage
@@ -95,3 +95,4 @@ view.addRoom = (room) =>{
     })
     document.querySelector('.list_rooms').appendChild(roomWrapper)
 }
+console.log(view.addRoom(room))

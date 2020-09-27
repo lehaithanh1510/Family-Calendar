@@ -59,16 +59,16 @@ model.getRooms = async () =>{
         // view.showCurrentRoom()
     }
 }
-model.listenRoomChange = () =>{
-    firebase.firestore().collection('rooms').where('users','array-contains',model.currentUser.email).onSnapshot((snapshot) =>{
-        for(oneChange of snapshot.docChanges()){
-           const docData = getOneDocument(oneChange.doc)
-           if(docData.id === model.currentRoom.id){
-               model.currentRoom = docData
-           }
-        }
-    })
-}
+// model.listenRoomChange = () =>{
+//     firebase.firestore().collection('rooms').where('users','array-contains',model.currentUser.email).onSnapshot((snapshot) =>{
+//         for(oneChange of snapshot.docChanges()){
+//            const docData = getOneDocument(oneChange.doc)
+//            if(docData.id === model.currentRoom.id){
+//                model.currentRoom = docData
+//            }
+//         }
+//     })
+// }
 model.createRoom = ({title,email}) =>{
     const dataToCreate = {
         title,
