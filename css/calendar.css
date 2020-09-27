@@ -1,0 +1,147 @@
+.timeline_container {
+    height :100vh;
+}
+.timeline_container .header {
+    height: 60px;
+    background-color: #ffffff;
+    color: blueviolet;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: 600;
+}
+.timeline_container .main {
+    height: calc(100vh - 65px);
+    display: flex;
+}
+.timeline_container  .timeline_detail {
+    /* display: flex; */
+    width :80%;
+}
+.timeline_container .aside_left {
+    border : 1px solid #dbdbdb ;
+    width : 20%;
+    height: 100vh;
+}
+.timeline_container .aside_left .create_event {
+    padding : 10px;
+    display: flex;
+    justify-content: flex-start ;
+    height: 10vh;
+}
+.create_event button {
+    padding : 10px 25px;
+    font-size: 15px;
+    border-radius: 50px;
+
+}
+.timeline_container .aside_left .room_container .room_header {
+    font-size: 17px;
+    padding: 10px;
+    padding-bottom: 20px;
+    font-weight: 600;
+    position: relative;
+    color : #65676b ;
+    
+}
+.timeline_container .aside_left .room_container .room_header .create_new_room {
+    position: absolute;
+    right : 5%;
+    padding : 5px 10px;
+
+}
+.timeline_container .aside_left .room_container .list_rooms {
+    overflow-y: auto;
+}
+.timeline_container .aside_left .room_container .list_rooms .room {
+    padding: 10px;
+}
+.timeline_container .current  {
+    background : #dbdbdb;
+}
+.calendar {
+    height : 40vh;
+    width : 100%;
+    padding :10px 14px 16px 20px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+.calendar .month_navigation {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+}
+.calendar .month_navigation .month {
+    position: absolute;
+    left: 1%;
+}
+.calendar .month_navigation button {
+    margin: 0px 5px;
+    background: transparent;
+    border: white;
+}
+.days_wrapper {
+    margin-top: 10px;
+}
+.days_wrapper .days_of_week {
+padding : 0px 10px 10px 0px; 
+text-align: center;   
+
+}
+.timeline_detail .user_navigation {
+    display: flex;
+    border : 1px solid #dbdbdb ;
+    width : 100%;
+    height: 10vh;
+    position: relative;
+    align-items: center;
+}
+.timeline_detail .user_navigation .add_user {
+    position: absolute;
+    right :1%;
+    
+}
+.timeline_detail .date_navigation {
+    border : 1px solid #dbdbdb ;
+    width : 100%;
+    height: 10vh; 
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.timeline_detail .date_navigation .date {
+    margin: 0px 15px;
+    font-size: 20px;
+}
+.timeline_detail .date_navigation button {
+    background: transparent;
+    border: white;
+    font-size: 25px;
+}
+.timeline_detail .user_navigation .family_member {
+    width : 10%;
+    height: 10vh;
+    /* border: red 1px solid ; */
+    font-size: 20px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.timeline_detail .family_list_timeline .timeline_wrapper {
+    display: flex;
+}
+.timeline_detail .family_list_timeline .timeline_wrapper .time {
+    width :7%;
+    text-align: center;
+    border-right: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    padding :10px; 
+}
+.timeline_detail .family_list_timeline .timeline_wrapper .content {
+    padding :10px; 
+    border-bottom: 1px solid #dbdbdb;
+    width: 100%; 
+}
