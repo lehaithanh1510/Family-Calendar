@@ -44,18 +44,27 @@ controller.logIn = (data) => {
         model.logIn(data)
 
 }
-controller.createRoom = ({title, email}) =>{
+controller.createRoom = (title) =>{
     if(title.trim() === '') {
         view.setErrorMessage('create_room_title_error', 'Please input title')
+        return
     }else{
         view.setErrorMessage('create_room_title_error', '')
     }
-    if(email.trim() === '') {
-        view.setErrorMessage('create_room_email_error', 'Please input email')
+    model.createRoom(title)
+}
+controller.addUser = ({title,email}) =>{
+    if(title.trim() === ''){
+        view.setErrorMessage('title_error', 'Please input title')
     }else{
-        view.setErrorMessage('create_room_email_error', '')
+        view.setErrorMessage('title_error', '')
+    }
+    if(email.trim() === ''){
+        view.setErrorMessage('email_error', 'Please input email')
+    }else{
+        view.setErrorMessage('email_error', '')
     }
     if(title.trim() !== '' && email.trim() !== ''){
-        model.createRoom({title,email})
+        model.addUser({title,email})
     }
 }

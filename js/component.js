@@ -54,6 +54,22 @@ component.loginPage = `
         </div>
 `
 component.calendarPage =`
+<div class="create_user_form">
+<form id="create_user_form">
+    <div class="input_wrapper work">
+        <input type="text " placeholder="Add email" name="email">
+        <div class="error" id="email_error"></div>
+    </div>
+    <div class="input_wrapper work">
+        <input type="text " placeholder="title">
+        <div class="error" id="title_error"></div>
+    </div>
+    <div class="form_action">
+        <button class="cursor_pointer cancel" id="adduser_redirect_to_calendar" type="button"> Cancel </button>
+        <button class="btn cursor_pointer" type="submit"> Add </button>
+    </div>
+</form>
+</div>
 <div class="timeline_container">
             <div class="header"> Family Calendar</div>
             <div class="main">
@@ -109,14 +125,7 @@ component.calendarPage =`
                                     class="fas fa-folder-plus"></i></button>
                         </div>
                         <div class="list_rooms">
-                            <div class="room cursor_pointer current">
-                                <div class="room_title"> Our home </div>
-                                <div class="num_of_user"> 4 users</div>
-                            </div>
-                            <div class="room cursor_pointer">
-                                <div class="room_title"> My footbal team </div>
-                                <div class="num_of_user"> 10 users</div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -125,7 +134,7 @@ component.calendarPage =`
                         <div class="family_member cursor_pointer current"> Dad </div>
                         <div class="family_member cursor_pointer"> Mom </div>
                         <div class="family_member cursor_pointer"> Son </div>
-                        <button class="btn add_user cursor_pointer "> <i class="fas fa-user-plus"></i></button>
+                        <button class="btn add_user cursor_pointer " id ="add_user_submit"> <i class="fas fa-user-plus"></i></button>
                     </div>
                     <div class="date_navigation">
                         <button class="cursor_pointer previous_day"> <i class="fas fa-chevron-left"></i> </button>
@@ -162,10 +171,6 @@ component.createRoomPage = `
             <div class="input_wrapper">
                 <input type="text" placeholder="Room title" name="title">
                 <div class="error" id="create_room_title_error"></div>
-            </div>
-            <div class="input_wrapper">
-                <input type="text" placeholder="Friend email" name="email">
-                <div class="error" id="create_room_email_error"></div>
             </div>
             <button class="btn">Save</button>
             <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>

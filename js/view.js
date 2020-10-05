@@ -36,9 +36,29 @@ view.setActiveScreen = (page) => {
             })
             break;
         case "calendarPage":
+            
             document.getElementById('app').innerHTML = component.calendarPage
             document.getElementById('create_room').addEventListener('click', () =>{
                 view.setActiveScreen('createRoomPage')
+            })
+            document.querySelector(".add_user").addEventListener("click",() => {
+            document.querySelector(".create_user_form").style.display ='block'
+            const addUser = document.getElementById('add_user_submit')
+            addUser.addEventListener('submit', (e) =>{
+                e.preventDefault()
+                const data = {
+                    title: addUser.title.value,
+                    email: addUser.email.value
+                }
+                controller.addUser(data)    
+            })
+           
+            document.getElementById('adduser_redirect_to_calendar').addEventListener('click', () =>{
+                view.setActiveScreen('calendarPage')
+            
+            })
+            
+
             })
             model.getRooms()
             // model.listenRoomChange()
@@ -51,10 +71,7 @@ view.setActiveScreen = (page) => {
              const createRoomForm = document.getElementById('create_room_form')
              createRoomForm.addEventListener('submit', (e) =>{
                  e.preventDefault()
-                 const data = {
-                     title: createRoomForm.title.value,
-                     email: createRoomForm.email.value
-                 }
+                 const data = createRoomForm.title.value
                  controller.createRoom(data)
              })
              break;    
@@ -85,14 +102,12 @@ view.addRoom = (room) =>{
     }
     roomWrapper.innerHTML = `
     <div class="room_title">${room.title}</div>
-    <div class="num_of_user">${room.users.length} users</div>
     `
     roomWrapper.addEventListener('click', () =>{
-        model.currentRoom = filter(model.rooms, item => item.id === room.id)[0]
+        model.currentRoom = model.rooms.filter(item => item.id === room.id)[0]
         view.showCurrentRoom()
         document.querySelector('.room.current').classList.remove('current')
         roomWrapper.classList.add('current')
     })
     document.querySelector('.list_rooms').appendChild(roomWrapper)
 }
-console.log(view.addRoom(room))

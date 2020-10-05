@@ -1,8 +1,8 @@
-
 *{
     margin: 0px ;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Grandstander', cursive;
 }
 .input_wrapper input {
     padding : 10px 20px;
@@ -23,13 +23,13 @@
     padding : 7px 10px;
     border-radius: 5px;
 }
+.basic_btn {
+    background: transparent;
+    border: white;
+}
 .error {
     color: red;
 }
 .cursor_pointer {
     cursor: pointer;
-}
-.btn_bg_light{
-    background: transparent;
-    color: #333;
 }

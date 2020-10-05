@@ -57,24 +57,37 @@ model.getRooms = async () =>{
     if(model.rooms.length > 0) {
         model.currentRoom = model.rooms[0]
         // view.showCurrentRoom()
+        view.showRooms()
     }
 }
-// model.listenRoomChange = () =>{
-//     firebase.firestore().collection('rooms').where('users','array-contains',model.currentUser.email).onSnapshot((snapshot) =>{
-//         for(oneChange of snapshot.docChanges()){
-//            const docData = getOneDocument(oneChange.doc)
-//            if(docData.id === model.currentRoom.id){
-//                model.currentRoom = docData
-//            }
-//         }
-//     })
-// }
-model.createRoom = ({title,email}) =>{
+model.listenRoomChange = () =>{
+    let isFirstRun = true
+    firebase.firestore().collection('rooms').where('users','array-contains',model.currentUser.email).onSnapshot((snapshot) =>{
+        if(isFirstRun) {
+            isFirstRun = false
+            return
+        }
+        for(oneChange of snapshot.docChanges()){
+           const docData = getOneDocument(oneChange.doc)
+           if(docData.id === model.currentRoom.id){
+               model.currentRoom = docData
+           }
+        }
+    })
+}
+model.createRoom = (title) =>{
     const dataToCreate = {
         title,
         schedules: [],
-        users: [email, model.currentUser.email]
+        users: [model.currentUser.email]
     }
     firebase.firestore().collection('rooms').add(dataToCreate)
     view.setActiveScreen('calendarPage')
+}
+model.addUser = ({title,email}) =>{
+    const dataToUpdate = {
+        users: firebase.firestore.FielValue.arrayUnion(title),
+        users: firebase.firestore.FielValue.arrayUnion(email)
+    }
+    firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
 }
