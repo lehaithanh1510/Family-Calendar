@@ -43,7 +43,7 @@ view.setActiveScreen = (page) => {
             })
             document.querySelector(".add_user").addEventListener("click",() => {
             document.querySelector(".create_user_form").style.display ='block'
-            const addUser = document.getElementById('add_user_submit')
+            const addUser = document.getElementById('create_user_form')
             addUser.addEventListener('submit', (e) =>{
                 e.preventDefault()
                 const data = {

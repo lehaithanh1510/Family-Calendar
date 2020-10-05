@@ -79,15 +79,15 @@ model.createRoom = (title) =>{
     const dataToCreate = {
         title,
         schedules: [],
-        users: [model.currentUser.email]
+        users: [email,model.currentUser.email]
     }
     firebase.firestore().collection('rooms').add(dataToCreate)
     view.setActiveScreen('calendarPage')
 }
 model.addUser = ({title,email}) =>{
     const dataToUpdate = {
-        users: firebase.firestore.FielValue.arrayUnion(title),
-        users: firebase.firestore.FielValue.arrayUnion(email)
+        users: firebase.firestore.FieldValue.arrayUnion(title),
+        users: firebase.firestore.FieldValue.arrayUnion(email)
     }
     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
 }

@@ -61,7 +61,7 @@ component.calendarPage =`
         <div class="error" id="email_error"></div>
     </div>
     <div class="input_wrapper work">
-        <input type="text " placeholder="title">
+        <input type="text " placeholder="title" name="title">
         <div class="error" id="title_error"></div>
     </div>
     <div class="form_action">
