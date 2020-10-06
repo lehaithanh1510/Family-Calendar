@@ -86,8 +86,8 @@ model.createRoom = (title) =>{
 }
 model.addUser = ({title,email}) =>{
     const dataToUpdate = {
-        users: firebase.firestore.FieldValue.arrayUnion(title),
-        users: firebase.firestore.FieldValue.arrayUnion(email)
+        // users: firebase.firestore.FieldValue.arrayUnion(title),
+        users: firebase.firestore.FieldValue.arrayUnion({email,title})
     }
     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
 }
