@@ -45,9 +45,7 @@
 .create_event button {
     padding : 10px 25px;
     font-size: 15px;
-     
     border-radius: 50px;
-
 }
 .timeline_container .aside_left .room_container .room_header {
     font-size: 17px;
@@ -65,7 +63,7 @@
 
 }
 .timeline_container .aside_left .room_container .list_rooms {
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 .timeline_container .aside_left .room_container .list_rooms .room {
     padding: 10px;
@@ -101,8 +99,6 @@
 .days_wrapper .days_of_week {
     padding : 4px ;
     text-align: center;
-     
-
 }
 .days_wrapper .today {
     background-color :  #007cfd ;
@@ -110,7 +106,13 @@
     height: 20px;
     border-radius: 50%;
     color: #ffffff;
-     
+}
+.days_wrapper .chosenday {
+    background-color :  #d2e3fc ;
+    color: #185abc;
+    width : 20px;
+    height: 20px;
+    border-radius: 50%;
 }
 .timeline_detail .user_navigation {
     display: flex;
@@ -147,8 +149,7 @@
     width : 10%;
     height: 10vh;
     /* border: red 1px solid ; */
-    font-size: 20px;
-     
+    font-size: 20px;   
     color: black;
     display: flex;
     align-items: center;
@@ -156,14 +157,13 @@
     border-radius: 5px;
 }
 .timeline_detail .family_list_timeline {
+    height : 80vh;
     overflow-y:auto;
 }
 .timeline_detail .family_list_timeline .timeline_wrapper {
     display: flex;
     border-bottom: 1px solid #dbdbdb;
     align-items: center;
-
-
 }
 .timeline_detail .family_list_timeline .timeline_wrapper .time {
     width :7%;

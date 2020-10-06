@@ -11,9 +11,12 @@ window.onload = () => {
   firebase.initializeApp(firebaseConfig);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      model.currentUser = {
+      model.currentLogInUser = {
         email: user.email,
         displayName: user.displayName
+      }
+      model.currentUser = {
+        email: user.email,
       }
       if (user.emailVerified) {   
         view.setActiveScreen('calendarPage')
@@ -28,3 +31,16 @@ window.onload = () => {
   })
   view.setActiveScreen('loginPage')
 }
+const getManyDocument = (response) => {
+  const listData = []
+  for (const doc of response.docs) {
+      listData.push(getOneDocument(doc))
+  }
+  return listData
+}
+const getOneDocument = (response) => {
+  const data = response.data()
+  data.id = response.id
+  return data
+}
+console.log(new Date())
