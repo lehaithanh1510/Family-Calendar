@@ -130,11 +130,11 @@ component.calendarPage =`
                     </div>
                 </div>
                 <div class="timeline_detail">
+                   <div> 
                     <div class="user_navigation">
-                        <div class="family_member cursor_pointer current"> Dad </div>
-                        <div class="family_member cursor_pointer"> Mom </div>
-                        <div class="family_member cursor_pointer"> Son </div>
-                        <button class="btn add_user cursor_pointer " id ="add_user_submit"> <i class="fas fa-user-plus"></i></button>
+                    
+                    </div>
+                    <button class="btn add_user cursor_pointer " id ="add_user_submit"> <i class="fas fa-user-plus"></i></button>
                     </div>
                     <div class="date_navigation">
                         <button class="cursor_pointer previous_day"> <i class="fas fa-chevron-left"></i> </button>
@@ -171,7 +171,13 @@ component.createRoomPage = `
             <div class="input_wrapper">
                 <input type="text" placeholder="Room title" name="title">
                 <div class="error" id="create_room_title_error"></div>
+                
             </div>
+            <div class="input_wrapper">
+            <input type="text" placeholder="My title" name="Mytitle">
+            <div class="error" id="create_my_room_title_error"></div>
+            
+        </div>
             <button class="btn">Save</button>
             <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>
         </form>

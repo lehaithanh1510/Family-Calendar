@@ -56,7 +56,7 @@ model.getRooms = async () =>{
     model.rooms = getManyDocument(response)
     if(model.rooms.length > 0) {
         model.currentRoom = model.rooms[0]
-        // view.showCurrentRoom()
+        view.showCurrentRoom()
         view.showRooms()
     }
 }
@@ -68,25 +68,31 @@ model.listenRoomChange = () =>{
             return
         }
         for(oneChange of snapshot.docChanges()){
+            console.log(oneChange)
            const docData = getOneDocument(oneChange.doc)
            if(docData.id === model.currentRoom.id){
                model.currentRoom = docData
+               console.log(docData)
            }
         }
     })
 }
-model.createRoom = (title) =>{
+model.createRoom = (title,Mytitle) =>{
     const dataToCreate = {
         title,
         schedules: [],
-        users: [email,model.currentUser.email]
+        users: [{
+            ...Mytitle,
+            email: model.currentUser.email
+        }],
     }
+   
+
     firebase.firestore().collection('rooms').add(dataToCreate)
     view.setActiveScreen('calendarPage')
 }
 model.addUser = ({title,email}) =>{
     const dataToUpdate = {
-        // users: firebase.firestore.FieldValue.arrayUnion(title),
         users: firebase.firestore.FieldValue.arrayUnion({email,title})
     }
     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)

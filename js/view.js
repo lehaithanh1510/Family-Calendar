@@ -72,7 +72,13 @@ view.setActiveScreen = (page) => {
              createRoomForm.addEventListener('submit', (e) =>{
                  e.preventDefault()
                  const data = createRoomForm.title.value
-                 controller.createRoom(data)
+
+                 const dataUser = {
+                     email: model.currentUser.email.value,
+                     title: createRoomForm.Mytitle.value
+                 }
+                 controller.createRoom(data,dataUser)
+                 
              })
              break;    
     }
@@ -84,8 +90,13 @@ view.renderDayOfMonth = (month) => {
 
 }
 view.showCurrentRoom = () =>{
-    for(schedule of model.currentRoom.schedules){
+    
+    for(schedule of model.rooms){
 
+    }
+    document.querySelector('.user_navigation').innerHTML = ''
+    for( user of model.currentRoom.users) {
+        view.addUser(user)
     }
 }
 view.showRooms = () =>{
@@ -111,3 +122,13 @@ view.addRoom = (room) =>{
     })
     document.querySelector('.list_rooms').appendChild(roomWrapper)
 }
+view.addUser = (user) =>{
+    const addWrapper = document.createElement('div')
+    addWrapper.classList.add('family_member')
+    addWrapper.classList.add('cursor_pointer')
+    addWrapper.classList.add('current')
+    addWrapper.innerHTML = user.title
+    document.querySelector('.user_navigation').appendChild(addWrapper)
+}
+
+
