@@ -165,8 +165,12 @@ component.createRoomPage = `
         <form id="create_room_form">
             <h4>Create a new room</h4>
             <div class="input_wrapper">
-                <input type="text" placeholder="Room title" name="title">
+                <input type="text" placeholder="Room title" name="roomTitle">
                 <div class="error" id="create_room_title_error"></div>
+            </div>
+            <div class="input_wrapper">
+                <input type="text" placeholder="My title" name="myTitle">
+                <div class="error" id="create_my_title_error"></div>
             </div>
             <button class="btn">Save</button>
             <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>

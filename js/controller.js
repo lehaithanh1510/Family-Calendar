@@ -160,17 +160,22 @@ controller.compareTwoObject = (objA, objB) => {
     return true;
 }
 controller.deleteSchedule = (schedule) => {
+    let index = -1
     for (let i = 0; i < model.currentRoom.schedules.length; i++) {
         if (controller.compareTwoObject(schedule, model.currentRoom.schedules[i])) {
-            model.currentRoom.schedules.splice(i, 1)
+            index =i 
+            // model.currentRoom.schedules.splice(i, 1)
         }
-        if (model.currentRoom.schedules.length === 0) {
-            model.deleteAllSchedules
-        }
+        // if (model.currentRoom.schedules.length === 0) {
+        //     model.deleteAllSchedules()
+        // }
         else {
             model.currentRoom.schedules[i].time = model.currentRoom.schedules[i].time.toISOString()
         }
 
+    }
+    if (index!== -1) {
+        model.currentRoom.schedules.splice(index, 1)
     }
     console.log(model.currentRoom.schedules)
     model.deleteEvent(model.currentRoom.schedules)

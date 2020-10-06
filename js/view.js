@@ -62,6 +62,10 @@ view.setActiveScreen = (page) => {
             document.querySelector(".cancel").addEventListener("click", () => {
                 document.querySelector(".create_event_form").style.display = 'none'
             })
+            // click create new room 
+            // document.getElementById('create_room').addEventListener('click', () =>{
+            //     view.setActiveScreen('createRoomPage')
+            // })
             // click create new event 
             const createEventForm = document.getElementById("create_event_form")
             createEventForm.addEventListener('submit', (e) => {
@@ -84,10 +88,7 @@ view.setActiveScreen = (page) => {
                 document.querySelector(".create_event_form").style.display = 'none'
             })
             model.listenChange()
-
             break;
-
-
     }
 }
 view.setErrorMessage = (id, content) => {
@@ -144,8 +145,10 @@ view.renderDayOfMonth = (month, year) => {
 
 }
 view.showCurrentRoom = () => {
-    for (schedule of model.currentEventDayOfRoom) {
+    let day = model.currentEventDayOfRoom || []
+    for (schedule of (model.currentEventDayOfRoom || [])) {
         view.addSchedule(schedule)
+    
     }
 }
 view.addSchedule = (schedule) => {
@@ -178,6 +181,7 @@ view.addSchedule = (schedule) => {
     document.querySelector(".family_list_timeline").appendChild(scheduleWrapper)
     //click and delete event
     scheduleWrapper.addEventListener("click",(e) => {
+        console.log(schedule)
         controller.deleteSchedule(schedule)
         e.target.parentNode.parentNode.parentNode.removeChild(scheduleWrapper)
 

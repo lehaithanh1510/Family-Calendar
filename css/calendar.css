@@ -197,7 +197,7 @@
 .create_event_form .time_wrapper input {
     width : 90%;
 }
-.create_event_form  .basic_icon {
+.create_event_form .basic_icon {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -213,9 +213,21 @@
     width :165%;
     height : 15vh;
 }
-.create_event_form .cancel {
-    background-color: red;
-    color: white;
-    padding : 7px 10px;
-    border-radius: 5px;
+.create_room_form{
+    position: absolute;
+    padding: 10px 10px 10px 30px;
+    background-color: #dbdbdb;
+    top:20vh;
+    left: 35%;
+    opacity: 1;
+    width :30%;
+    /* display: none; */
+}
+.create_room_form .basic_icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.room_title_wrapper {
+    display: flex;
 }

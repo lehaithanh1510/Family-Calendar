@@ -33,3 +33,9 @@
 .cursor_pointer {
     cursor: pointer;
 }
+.cancel {
+    background-color: red;
+    color: white;
+    padding : 7px 10px;
+    border-radius: 5px;
+}
