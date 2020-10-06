@@ -58,36 +58,39 @@ component.calendarPage =`
             <form id="create_event_form">
                 <div class="input_wrapper work">
                     <input type="text " placeholder="Add Work" name="work">
-                    <div class="error" id=""></div>
+                    <div class="error" id="work_error"></div>
                 </div>
                 <div class="time_wrapper">
                     <div class="basic_icon"> <i class="far fa-clock"></i> </div>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="Time:" name="time">
-                        <div class="error" id=""></div>
+                        <input type="number" placeholder="Hour:" name="hour">
+                        <div class="error" id="hour_error"></div>
                     </div>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="Day:" name="day">
-                        <div class="error" id=""></div>
+                        <input type="number" placeholder="Min:" name="minute">
+                        <div class="error" id="minute_error"></div>
                     </div>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="Month:" name="month">
-                        <div class="error" id=""></div>
+                        <input type="number" placeholder="Day:" name="day">
                     </div>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="Year:" name="month">
-                        <div class="error" id=""></div>
+                        <input type="number" placeholder="Month:" name="month">
+                        <div class="error" id="month_error"></div>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Year:" name="year">
+                        <div class="error" id="year_error"></div>
                     </div>
                 </div>
                 <div class="description_wrapper">
                     <div class="basic_icon"> <i class="far fa-comment-dots"></i></div>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="Add Description">
+                        <input type="text" placeholder="Add Description:" name="description">
                     </div>
                 </div>
                 <div class="form_action">
                     <button class="cursor_pointer cancel" type="button"> Cancel </button>
-                    <button class="btn cursor_pointer" type="submit"> Save </button>
+                    <button class="btn cursor_pointer " type="submit"> Save </button>
                 </div>
 
             </form>
@@ -148,32 +151,29 @@ component.calendarPage =`
                         <div class="family_member cursor_pointer"> Son </div>
                         <button class="btn add_user cursor_pointer "> <i class="fas fa-user-plus"></i></button>
                     </div>
-                    <div class="date_header">
-                        <div class="date"> 23 tháng 9 năm 2020 </div>
-                    </div>
+                    <div class="date_header"> 23 tháng 9 năm 2020 </div>
                     <div class="family_list_timeline">
-                        <div class="timeline_wrapper">
-                            <div class="time"> 7AM </div>
-                            <div class="content">Get up</div>
-                            <button class="basic_btn delete_event"> <i class="fas fa-trash-alt"></i></button>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 7.30AM </div>
-                            <div class="content">Breakfast</div>
-                            <button class="basic_btn delete_event"> <i class="fas fa-trash-alt"></i></button>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 8AM </div>
-                            <div class="content">Go to school</div>
-                            <button class="basic_btn delete_event"> <i class="fas fa-trash-alt"></i></button>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 12AM </div>
-                            <div class="content">Go home</div>
-                            <button class="basic_btn delete_event"> <i class="fas fa-trash-alt"></i></button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+`
+component.createRoomPage = `
+<div class="create_room_wrapper">
+        <div class="login_header">Family Calendar</div>
+        <form id="create_room_form">
+            <h4>Create a new room</h4>
+            <div class="input_wrapper">
+                <input type="text" placeholder="Room title" name="roomTitle">
+                <div class="error" id="create_room_title_error"></div>
+            </div>
+            <div class="input_wrapper">
+                <input type="text" placeholder="My title" name="myTitle">
+                <div class="error" id="create_my_title_error"></div>
+            </div>
+            <button class="btn">Save</button>
+            <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>
+        </form>
+    </div>
 `
