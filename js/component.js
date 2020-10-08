@@ -54,6 +54,28 @@ component.loginPage = `
         </div>
 `
 component.calendarPage =`
+<div class="create_room_form">
+            <form id="create_room_form">
+                <div class="room_title_wrapper">
+                    <div class="basic_icon"><i class="fas fa-user"></i></div>
+                    <div class="input_wrapper title">
+                        <input type="text " placeholder="Room title" name="roomTitle">
+                        <div class="error" id="create_room_title_error"></div>
+                    </div>
+                </div>
+                <div class="my_title_wrapper">
+                    <div class="basic_icon"><i class="fas fa-home"></i></div>
+                    <div class="input_wrapper title">
+                        <input type="text " placeholder="My title" name="myTitle">
+                        <div class="error" id="create_my_title_error"></div>
+                    </div>
+                </div>
+                <div class="form_action">
+                    <button class="cursor_pointer cancel cancel_room" type="button"> Cancel </button>
+                    <button class="btn cursor_pointer" type="submit"> Save </button>
+                </div>
+            </form>
+        </div>
 <div class="create_event_form">
             <form id="create_event_form">
                 <div class="input_wrapper work">
@@ -89,10 +111,9 @@ component.calendarPage =`
                     </div>
                 </div>
                 <div class="form_action">
-                    <button class="cursor_pointer cancel" type="button"> Cancel </button>
+                    <button class="cursor_pointer cancel cancel_event" type="button"> Cancel </button>
                     <button class="btn cursor_pointer " type="submit"> Save </button>
                 </div>
-
             </form>
         </div>
 <div class="timeline_container">
@@ -133,14 +154,7 @@ component.calendarPage =`
                                     class="fas fa-folder-plus"></i></button>
                         </div>
                         <div class="list_rooms">
-                            <div class="room cursor_pointer current">
-                                <div class="room_title"> Our home </div>
-                                <div class="num_of_user"> 4 users</div>
-                            </div>
-                            <div class="room cursor_pointer">
-                                <div class="room_title"> My footbal team </div>
-                                <div class="num_of_user"> 10 users</div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

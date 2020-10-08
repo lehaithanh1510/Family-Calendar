@@ -39,7 +39,7 @@ view.setActiveScreen = (page) => {
             break;
         case "calendarPage":
             document.getElementById('app').innerHTML = component.calendarPage
-            model.getSchedules()
+            model.getSchedulesAndRooms()
             document.querySelector('.log_out').addEventListener('click', () => {
                 model.logOut();
             })
@@ -54,22 +54,31 @@ view.setActiveScreen = (page) => {
                 document.querySelector(".days").innerHTML = ""
                 controller.identifyMonthAndYearFollowing(controller.currentMonth, controller.currentYear)
             })
-            // click new event
+            // click to render new event form
             document.querySelector(".create_event").addEventListener("click", () => {
                 document.querySelector(".create_event_form").style.display = 'block'
             })
-            // click cancel new event
-            document.querySelector(".cancel").addEventListener("click", () => {
+            // click cancel new event form
+            document.querySelector(".cancel_event").addEventListener("click", () => {
                 document.querySelector(".create_event_form").style.display = 'none'
             })
-            // click create new room 
-            // document.getElementById('create_room').addEventListener('click', () =>{
-            //     view.setActiveScreen('createRoomPage')
+            // click to render new room form  
+            document.querySelector('.create_new_room').addEventListener('click', () =>{
+                document.querySelector(".create_room_form").style.display = 'block'
+            })
+            // click to cancel new room form
+            document.querySelector(".cancel_room").addEventListener("click", () => {
+                document.querySelector(".create_room_form").style.display = 'none'
+            })
+            //click to render add user form 
+            // document.querySelector(".cancel_room").addEventListener("click", () => {
+            //     document.querySelector(".create_room_form").style.display = 'none'
             // })
             // click create new event 
             const createEventForm = document.getElementById("create_event_form")
             createEventForm.addEventListener('submit', (e) => {
                 e.preventDefault()
+                // get event's data
                 const time = new Date()
                 time.setDate(Number(createEventForm.day.value))
                 time.setMonth(Number(createEventForm.month.value) - 1)
@@ -87,6 +96,27 @@ view.setActiveScreen = (page) => {
                 controller.updateNewevent(newEventToUpdate)
                 document.querySelector(".create_event_form").style.display = 'none'
             })
+            //click create new room 
+            const createRoomForm = document.getElementById("create_room_form") 
+            createRoomForm.addEventListener('submit',(e) => {
+                e.preventDefault() 
+                const roomTitle = createRoomForm.roomTitle.value
+                const dataUser = {
+                     email: model.currentLogInUser.email,
+                     title: createRoomForm.myTitle.value
+                 }
+                 controller.createRoom(roomTitle,dataUser) 
+            })
+            // click adduser 
+            // const addUserForm = document.getElementById("add_user_form") 
+            // addUserForm.addEventListener('submit',(e) => {
+            //     e.preventDefault() 
+            //     const dataUser = {
+            //          email: model.currentLogInUser.email,
+            //          title: createRoomForm.myTitle.value
+            //      }
+            //      controller.createRoom(roomTitle,dataUser) 
+            // })
             model.listenChange()
             break;
     }
@@ -109,17 +139,12 @@ view.renderDayOfMonth = (month, year) => {
             dayWrapper.classList.add("days_of_week")
             dayWrapper.classList.add("cursor_pointer")
             if (daysId[j] === new Date().getDate() && month === new Date().getMonth() + 1) {
+                dayWrapper.classList.add("chosenday")
                 dayWrapper.classList.add("today")
             }
             if (daysId[j]) {
                 dayWrapper.innerText = daysId[j]
             }
-            if (daysId[j] === model.currentDayOfRoom.getDate() 
-            && month === model.currentDayOfRoom.getMonth() + 1
-            && daysId[j] !== new Date().getDate()) {
-                dayWrapper.classList.add("chosenday")
-            }
-            // console.log(model.currentDayOfRoom)
             // click and render different day
             dayWrapper.addEventListener('click', () => {
                 date = new Date()
@@ -128,40 +153,28 @@ view.renderDayOfMonth = (month, year) => {
                 date.setMonth(month - 1)
                 console.log(date.toISOString())
                 model.currentDayOfRoom = date
-                document.querySelector(".family_list_timeline").innerHTML = ""
                 model.currentEventDayOfRoom = controller.filterScheduleOfDay(date)
-                console.log(model.currentEventDayOfRoom)
-                view.showCurrentRoom()
+                view.showCurrentSchedules()
                 document.querySelector('.date_header').innerText = `${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`
-                document.querySelector(".days").innerHTML = ""
-                view.renderDayOfMonth(date.getMonth() + 1, date.getFullYear())
+                document.querySelector(".chosenday").classList.remove("chosenday")
+                dayWrapper.classList.add("chosenday")
             })
             document.querySelector(`.row_${i}`).appendChild(dayWrapper)
             
         }
         daysIdCount += 7
     }
-    // document.querySelector(".days").appendChild()
 
 }
-view.showCurrentRoom = () => {
+view.showCurrentSchedules = () => {
     let day = model.currentEventDayOfRoom || []
+    document.querySelector(".family_list_timeline").innerHTML = ""
     for (schedule of (model.currentEventDayOfRoom || [])) {
         view.addSchedule(schedule)
-    
     }
+    view.scrollToEndElement()
 }
 view.addSchedule = (schedule) => {
-    // const htmlDoc = `
-    // <div class="timeline_wrapper">
-    //     <div class="time"> %hour%.%minute% </div>
-    //     <div class="content">%content%</div>
-    //     <button class="basic_btn delete_event"> <i class="fas fa-trash-alt"></i></button>
-    // </div>`
-    // var newHtmlDoc = htmlDoc.replace("%hour%", schedule.time.getHours())
-    // newHtmlDoc = newHtmlDoc.replace("%minute%", schedule.time.getMinutes())
-    // newHtmlDoc = newHtmlDoc.replace("%content%", schedule.content)
-    // document.querySelector(".family_list_timeline").insertAdjacentHTML('beforeend', newHtmlDoc)
     console.log(schedule)
     const scheduleWrapper = document.createElement('div')
     scheduleWrapper.classList.add('timeline_wrapper')
@@ -191,4 +204,32 @@ view.scrollToEndElement = () => {
     console.log('haha')
     const element = document.querySelector('.family_list_timeline')
     element.scrollTop = element.scrollHeight
+}
+view.showRooms = () => {
+    for (room of (model.rooms || [])) {
+        view.addRoom(room)
+    }
+}
+view.addRoom = (room) => {
+    const roomWrapper = document.createElement('div')
+    roomWrapper.classList.add('room')
+    roomWrapper.classList.add('cursor_pointer')
+    if (room.id === model.currentRoom.id) {
+        roomWrapper.classList.add('current')
+    }
+    roomWrapper.innerHTML = `<div class="room_title">${room.title}</div>`
+    // click and render different room 
+    roomWrapper.addEventListener('click', () => {
+        model.currentRoom = room 
+        // model.rooms.filter(item => item.id === room.id)
+        console.log(model.currentRoom)
+        console.log(model.currentDayOfRoom)
+        document.querySelector('.room.current').classList.remove('current')
+        roomWrapper.classList.add('current')
+        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
+        console.log(controller.filterScheduleOfDay(model.currentDayOfRoom))
+        console.log(model.currentEventDayOfRoom)
+        view.showCurrentSchedules()
+    })
+    document.querySelector('.list_rooms').appendChild(roomWrapper)
 }

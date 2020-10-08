@@ -1,12 +1,14 @@
 model = {
 
 }
-model.currentLogInUser = undefined
-model.currentUser = undefined
+model.baseColor = ["FFFFFF","E91E63" ,"9C27B0" ,"3F51B5" ,"03A9F4" ,"4CAF50" ,"FFEB3B", "FF5722" ,"795548"]
+model.currentAvailableColor = ["FFFFFF","E91E63" ,"9C27B0" ,"3F51B5" ,"03A9F4" ,"4CAF50" ,"FFEB3B", "FF5722" ,"795548"]
+model.currentLogInUser = undefined // Người đang đăng nhập
+model.currentUser = undefined // Nguời đang hiển thị lịch
 model.rooms = [];
 model.currentRoom = undefined // object chứa thông tin room
 model.currentDayOfRoom = new Date() // ngày cụ thể 
-model.currentEventDayOfRoom = undefined //array chứa các schedules của ngày cụ thể 
+model.currentEventDayOfRoom = [] //array chứa các schedules của ngày cụ thể 
 model.register = async (data) => {
     try {
         const respone = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
@@ -59,24 +61,30 @@ model.logOut = async () => {
     await firebase.auth().signOut()
     view.setActiveScreen('loginPage')
 }
-model.getSchedules = async () => {
-    const response = await firebase.firestore().collection("rooms").where("users", "array-contains", model.currentLogInUser.email).get()
+model.getSchedulesAndRooms = async () => {
+    const response = await firebase.firestore().collection("rooms").where("userEmail", "array-contains", model.currentLogInUser.email).get()
     model.rooms = getManyDocument(response)
     console.log(model.rooms)
+    for (let i = 0; i < model.rooms.length; i++) {
+        for (schedule of model.rooms[i].schedules) {
+            schedule.time = new Date(schedule.time)
+        }
+    }
     if (model.rooms.length > 0) {
         model.currentRoom = model.rooms[0]
         console.log(model.currentRoom)
-        for (let schedule of model.currentRoom.schedules) {
-            console.log(schedule.time)
-            schedule.time = new Date(schedule.time)
-        }
+        // for (let schedule of model.currentRoom.schedules) {
+        //     console.log(schedule.time)
+        //     schedule.time = new Date(schedule.time)
+        // }
         // console.log(model.currentRoom)
         model.currentEventDayOfRoom = controller.filterScheduleOfDay(new Date())
         // console.log(model.currentEventDayOfRoom)
         model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
         console.log(model.currentEventDayOfRoom)
-        view.showCurrentRoom()
+        view.showCurrentSchedules()
     }
+    view.showRooms()
 }
 model.updateNewevent = (data) => {
     let dataToUpdate = {
@@ -85,23 +93,26 @@ model.updateNewevent = (data) => {
     firebase.firestore().collection("rooms").doc(model.currentRoom.id).update(dataToUpdate)
 }
 model.listenChange = () => {
-    firebase.firestore().collection('rooms').where("users", "array-contains", model.currentLogInUser.email)
+    firebase.firestore().collection('rooms').where("userEmail", "array-contains", model.currentLogInUser.email)
         .onSnapshot((snapshot) => {
-            // console.log(snapshot.docChanges())
+            console.log(snapshot.docChanges())
             for (oneChange of snapshot.docChanges()) {
                 const docData = getOneDocument(oneChange.doc)
-                if (docData.id === model.currentRoom.id) {
-                    model.currentRoom = docData
-                    for (let schedule of model.currentRoom.schedules) {
-                        schedule.time = new Date(schedule.time)
+                if (oneChange.type === 'modified') {
+                    if (docData.id === model.currentRoom.id) {
+                        model.currentRoom = docData
+                        for (let schedule of model.currentRoom.schedules) {
+                            schedule.time = new Date(schedule.time)
+                        }
+                        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
+                        model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
+                        view.showCurrentSchedules()
                     }
-                    model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
-                    model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
-                    document.querySelector('.family_list_timeline').innerHTML = ''
-                    view.showCurrentRoom()
-                    view.scrollToEndElement()
                 }
-
+                if (oneChange.type === 'added') {
+                    model.rooms.push(docData)
+                    view.addRoom(docData)
+                }
             }
         })
 }
@@ -116,12 +127,27 @@ model.deleteEvent = (schedules) => { //input is array
         }
         firebase.firestore().collection("rooms").doc(model.currentRoom.id).update(dataToUpdate)
     }
-    // model.getSchedules()
-    // view.showCurrentRoom()
+    // view.showCurrentSchedules()
 }
 model.deleteAllSchedules = () => {
     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update({
         schedules: firebase.firestore.FieldValue.delete()
     })
 }
+model.createRoom = (title, userData) => {
+    const dataToCreate = {
+        title,
+        schedules: [],
+        users: [userData],
+        userEmail: [model.currentUser.email],
+    }
+    console.log(dataToCreate)
+    firebase.firestore().collection('rooms').add(dataToCreate)
+}
+// model.addUser = ({ title, email }) => {
+//     const dataToUpdate = {
+//         users: firebase.firestore.FieldValue.arrayUnion({ email, title })
+//     }
+//     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
+// }
 

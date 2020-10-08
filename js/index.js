@@ -29,7 +29,6 @@ window.onload = () => {
       }
     }
   })
-  view.setActiveScreen('loginPage')
 }
 const getManyDocument = (response) => {
   const listData = []

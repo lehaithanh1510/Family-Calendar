@@ -92,15 +92,20 @@ controller.identifyMonthAndYearFollowing = (month, year) => {
     console.log(controller.currentYear)
 }
 controller.filterScheduleOfDay = (day) => { // input là ngày cụ thể dạng new Date()
-    // console.log(model.currentRoom)
+    // console.log(Boolean(model.currentRoom.schedules))
     if (model.currentRoom.schedules) {
         const dayStandard = (object) =>
             object.time.getDate() === day.getDate()
             && object.time.getMonth() === day.getMonth()
             && object.time.getFullYear() === day.getFullYear()
-        return model.currentRoom.schedules.filter(dayStandard)
-        // trả ra 1 array schedules bao gồm các schedules chứa ngày cần tìm
+            return model.currentRoom.schedules.filter(dayStandard)
     }
+    else {
+        console.log("ra array rong ma")
+        return []
+    }
+    // trả ra 1 array schedules bao gồm các schedules chứa ngày cần tìm
+
 }
 controller.sortSchedulesOfDay = (array) => {
     for (let i = 0; i < array.length; i++) {
@@ -179,4 +184,21 @@ controller.deleteSchedule = (schedule) => {
     }
     console.log(model.currentRoom.schedules)
     model.deleteEvent(model.currentRoom.schedules)
+}
+controller.createRoom = (roomTitle,userData) =>{
+    if(roomTitle.trim() === '') {
+        view.setErrorMessage('create_room_title_error', 'Please enter room title')    
+    }
+    else{
+        view.setErrorMessage('create_room_title_error', '')
+    }
+    if(userData.title.trim() === ''){
+        view.setErrorMessage('create_my_title_error', 'Please enter your title')
+    }
+    else{
+        view.setErrorMessage('create_my_title_error', '')
+    }
+    model.createRoom(roomTitle,userData)
+    
+    
 }

@@ -101,11 +101,11 @@
     text-align: center;
 }
 .days_wrapper .today {
-    background-color :  #007cfd ;
+    background-color :  #007cfd !important ;
     width : 20px;
     height: 20px;
     border-radius: 50%;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 .days_wrapper .chosenday {
     background-color :  #d2e3fc ;
@@ -221,13 +221,20 @@
     left: 35%;
     opacity: 1;
     width :30%;
-    /* display: none; */
+    display: none;
 }
 .create_room_form .basic_icon {
+    width : 5%;
     display: flex;
     align-items: center;
     margin-right: 10px;
 }
 .room_title_wrapper {
     display: flex;
+}
+.my_title_wrapper {
+    display: flex;
+}
+.create_room_form .title {
+    width : 90%;
 }
