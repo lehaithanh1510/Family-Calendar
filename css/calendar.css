@@ -63,13 +63,17 @@
 
 }
 .timeline_container .aside_left .room_container .list_rooms {
-    /* overflow-y: auto; */
+    height: 30vh;
+    overflow-y: auto;
+
 }
 .timeline_container .aside_left .room_container .list_rooms .room {
     padding: 10px;
 }
 .timeline_container .current  {
+    color: black;
     background : #dbdbdb;
+    font-weight: 700;
 }
 .calendar {
     height : 40vh;
@@ -122,10 +126,15 @@
     position: relative;
     align-items: center;
 }
+.timeline_detail .user_navigation .list_users {
+    display: flex;
+    overflow-x: auto;
+    width: 90%;
+    overflow-y: hidden;
+}
 .timeline_detail .user_navigation .add_user {
     position: absolute;
     right :1%;
-    
 }
 .timeline_detail .date_header {
     border : 1px solid #dbdbdb ;
@@ -146,15 +155,15 @@
     font-size: 25px;
 }
 .timeline_detail .user_navigation .family_member {
-    width : 10%;
+    width : 15%;
     height: 10vh;
-    /* border: red 1px solid ; */
     font-size: 20px;   
-    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+    text-align: center;
+    border: solid 1px black;
 }
 .timeline_detail .family_list_timeline {
     height : 80vh;
@@ -237,4 +246,46 @@
 }
 .create_room_form .title {
     width : 90%;
+}
+.add_user_form{
+    position: absolute;
+    padding: 10px 10px 10px 20px;
+    background-color: #dbdbdb;
+    top:30vh;
+    left: 40%;
+    opacity: 1;
+    width :30%;
+    display: none;
+}
+.add_user_form .time_wrapper {
+    display: flex;
+}
+.add_user_form .time_wrapper input {
+    width : 90%;
+}
+.add_user_form  .basic_icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width :5%;
+}
+
+.add_user_form .adduser_input_wrapper {
+    display: flex;
+    margin : 5%;
+    /* flex-direction: row; */
+}
+
+.add_user_form  input {
+    width :100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb
+    /* height : 15vh; */
+}
+.add_user_form .cancel {
+    background-color: red;
+    color: white;
+    padding : 7px 10px;
+    border-radius: 5px;
 }

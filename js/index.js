@@ -10,6 +10,8 @@ window.onload = () => {
   };
   firebase.initializeApp(firebaseConfig);
   firebase.auth().onAuthStateChanged((user) => {
+    console.log('haha')
+    console.log(user)
     if (user) {
       model.currentLogInUser = {
         email: user.email,

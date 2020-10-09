@@ -54,6 +54,25 @@ component.loginPage = `
         </div>
 `
 component.calendarPage =`
+<div class="add_user_form">
+            <form id="add_user_form">
+                <div class="adduser_input_wrapper">
+                    <div class="basic_icon"><i class="fas fa-users"></i> </div>
+                    <input type="text " placeholder="User email" name="email">
+                    <div class="error" id="new_user_email_error"></div>
+                </div>
+                <div class="adduser_input_wrapper">
+                    <div class="basic_icon"><i class="far fa-file-alt"></i></div>
+                    <input type="text " placeholder="User title" name="title">
+                    <div class="error" id="new_user_title_error"></div>
+                </div>
+                <div class="form_action">
+                    <button class="cursor_pointer cancel cancel_add_user" type="button"> Cancel
+                    </button>
+                    <button class="btn cursor_pointer" type="submit"> Add </button>
+                </div>
+            </form>
+        </div> 
 <div class="create_room_form">
             <form id="create_room_form">
                 <div class="room_title_wrapper">
@@ -160,9 +179,7 @@ component.calendarPage =`
                 </div>
                 <div class="timeline_detail">
                     <div class="user_navigation">
-                        <div class="family_member cursor_pointer current"> Dad </div>
-                        <div class="family_member cursor_pointer"> Mom </div>
-                        <div class="family_member cursor_pointer"> Son </div>
+                        <div class="list_users"> </div>
                         <button class="btn add_user cursor_pointer "> <i class="fas fa-user-plus"></i></button>
                     </div>
                     <div class="date_header"> 23 tháng 9 năm 2020 </div>
@@ -172,22 +189,4 @@ component.calendarPage =`
                 </div>
             </div>
         </div>
-`
-component.createRoomPage = `
-<div class="create_room_wrapper">
-        <div class="login_header">Family Calendar</div>
-        <form id="create_room_form">
-            <h4>Create a new room</h4>
-            <div class="input_wrapper">
-                <input type="text" placeholder="Room title" name="roomTitle">
-                <div class="error" id="create_room_title_error"></div>
-            </div>
-            <div class="input_wrapper">
-                <input type="text" placeholder="My title" name="myTitle">
-                <div class="error" id="create_my_title_error"></div>
-            </div>
-            <button class="btn">Save</button>
-            <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>
-        </form>
-    </div>
 `

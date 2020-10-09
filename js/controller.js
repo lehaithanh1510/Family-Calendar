@@ -98,7 +98,7 @@ controller.filterScheduleOfDay = (day) => { // input là ngày cụ thể dạng
             object.time.getDate() === day.getDate()
             && object.time.getMonth() === day.getMonth()
             && object.time.getFullYear() === day.getFullYear()
-            return model.currentRoom.schedules.filter(dayStandard)
+        return model.currentRoom.schedules.filter(dayStandard)
     }
     else {
         console.log("ra array rong ma")
@@ -109,17 +109,17 @@ controller.filterScheduleOfDay = (day) => { // input là ngày cụ thể dạng
 }
 controller.sortSchedulesOfDay = (array) => {
     for (let i = 0; i < array.length; i++) {
-        for (let j = array.length -1; j > i; j--) {
-            if (new Date(array[j].time).getHours() < new Date(array[j-1].time).getHours()) {
+        for (let j = array.length - 1; j > i; j--) {
+            if (new Date(array[j].time).getHours() < new Date(array[j - 1].time).getHours()) {
                 let temp = array[j]
-                array[j] = array[j-1]
-                array[j-1] = temp
+                array[j] = array[j - 1]
+                array[j - 1] = temp
             }
-            else if (new Date(array[j].time).getHours() == new Date(array[j-1].time).getHours() 
-            && new Date(array[j].time).getMinutes() < new Date(array[j-1].time).getMinutes()) {
+            else if (new Date(array[j].time).getHours() == new Date(array[j - 1].time).getHours()
+                && new Date(array[j].time).getMinutes() < new Date(array[j - 1].time).getMinutes()) {
                 let temp = array[j]
-                array[j] = array[j-1]
-                array[j-1] = temp
+                array[j] = array[j - 1]
+                array[j - 1] = temp
             }
         }
     }
@@ -168,7 +168,7 @@ controller.deleteSchedule = (schedule) => {
     let index = -1
     for (let i = 0; i < model.currentRoom.schedules.length; i++) {
         if (controller.compareTwoObject(schedule, model.currentRoom.schedules[i])) {
-            index =i 
+            index = i
             // model.currentRoom.schedules.splice(i, 1)
         }
         // if (model.currentRoom.schedules.length === 0) {
@@ -179,26 +179,55 @@ controller.deleteSchedule = (schedule) => {
         }
 
     }
-    if (index!== -1) {
+    if (index !== -1) {
         model.currentRoom.schedules.splice(index, 1)
     }
     console.log(model.currentRoom.schedules)
     model.deleteEvent(model.currentRoom.schedules)
 }
-controller.createRoom = (roomTitle,userData) =>{
-    if(roomTitle.trim() === '') {
-        view.setErrorMessage('create_room_title_error', 'Please enter room title')    
+controller.createRoom = (roomTitle, userData) => {
+    if (roomTitle.trim() === '') {
+        view.setErrorMessage('create_room_title_error', 'Please enter room title')
     }
-    else{
+    else {
         view.setErrorMessage('create_room_title_error', '')
     }
-    if(userData.title.trim() === ''){
+    if (userData.title.trim() === '') {
         view.setErrorMessage('create_my_title_error', 'Please enter your title')
     }
-    else{
+    else {
         view.setErrorMessage('create_my_title_error', '')
     }
-    model.createRoom(roomTitle,userData)
-    
-    
+
+    if (roomTitle.trim() !== '' && userData.title.trim() !== '') {
+        model.createRoom(roomTitle, userData)
+    }
+}
+controller.addUser = (dataUser) => {
+    if (dataUser.title.trim() === '') {
+        view.setErrorMessage('new_user_title_error', 'Please enter title')
+    } else {
+        view.setErrorMessage('new_user_title_error', '')
+    }
+    if (dataUser.email.trim() === '') {
+        view.setErrorMessage('new_user_email_error', 'Please enter email')
+    } else {
+        view.setErrorMessage('new_user_email_error', '')
+    }
+    if (dataUser.title.trim() !== '' && dataUser.email.trim() !== '') {
+        model.addUser(dataUser)
+    }
+}
+controller.findCurrentAvailableColor = (room) => {
+    model.currentAvailableColor = [] 
+    for (user of room.users) {
+        let check = true
+        for (color of model.baseColor) {
+            if (user.color === color) check = false
+        }
+        if (check) model.currentAvailableColor.push(user.color)
+        // let index = model.currentAvailableColor.indexOf(user.color)
+        // model.currentAvailableColor.splice(model.currentAvailableColor.indexOf(user.color),1)
+    }
+    return model.currentAvailableColor
 }

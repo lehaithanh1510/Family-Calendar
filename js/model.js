@@ -1,8 +1,8 @@
 model = {
 
 }
-model.baseColor = ["FFFFFF","E91E63" ,"9C27B0" ,"3F51B5" ,"03A9F4" ,"4CAF50" ,"FFEB3B", "FF5722" ,"795548"]
-model.currentAvailableColor = ["FFFFFF","E91E63" ,"9C27B0" ,"3F51B5" ,"03A9F4" ,"4CAF50" ,"FFEB3B", "FF5722" ,"795548"]
+model.baseColor = ["xanhthienthanh", "FF0000", "FA28FF", "A4DD00", "AB149E", "A1887F", "FFEB3B", "FF5722"]
+model.currentAvailableColor = ["xanhthienthanh", "FF0000", "FA28FF", "A4DD00", "AB149E", "A1887F", "FFEB3B", "FF5722"]
 model.currentLogInUser = undefined // Người đang đăng nhập
 model.currentUser = undefined // Nguời đang hiển thị lịch
 model.rooms = [];
@@ -61,7 +61,7 @@ model.logOut = async () => {
     await firebase.auth().signOut()
     view.setActiveScreen('loginPage')
 }
-model.getSchedulesAndRooms = async () => {
+model.getAndShowSchedulesAndRooms = async () => {
     const response = await firebase.firestore().collection("rooms").where("userEmail", "array-contains", model.currentLogInUser.email).get()
     model.rooms = getManyDocument(response)
     console.log(model.rooms)
@@ -79,10 +79,10 @@ model.getSchedulesAndRooms = async () => {
         // }
         // console.log(model.currentRoom)
         model.currentEventDayOfRoom = controller.filterScheduleOfDay(new Date())
-        // console.log(model.currentEventDayOfRoom)
         model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
         console.log(model.currentEventDayOfRoom)
         view.showCurrentSchedules()
+        view.showCurrentUsersOfRoom()
     }
     view.showRooms()
 }
@@ -107,6 +107,7 @@ model.listenChange = () => {
                         model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
                         model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
                         view.showCurrentSchedules()
+                        view.showCurrentUsersOfRoom()
                     }
                 }
                 if (oneChange.type === 'added') {
@@ -139,15 +140,17 @@ model.createRoom = (title, userData) => {
         title,
         schedules: [],
         users: [userData],
-        userEmail: [model.currentUser.email],
+        userEmail: [model.currentLogInUser.email],
     }
     console.log(dataToCreate)
     firebase.firestore().collection('rooms').add(dataToCreate)
 }
-// model.addUser = ({ title, email }) => {
-//     const dataToUpdate = {
-//         users: firebase.firestore.FieldValue.arrayUnion({ email, title })
-//     }
-//     firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
-// }
+model.addUser = (dataUser) => {
+    const dataToUpdate = {
+        users: firebase.firestore.FieldValue.arrayUnion(dataUser),
+        userEmail: firebase.firestore.FieldValue.arrayUnion(dataUser.email)
+    }
+    firebase.firestore().collection('rooms').doc(model.currentRoom.id).update(dataToUpdate)
+}
+
 
