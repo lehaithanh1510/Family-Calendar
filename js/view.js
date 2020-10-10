@@ -174,7 +174,9 @@ view.renderDayOfMonth = (month, year) => {
                 model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
                 view.showCurrentSchedules()
                 document.querySelector('.date_header').innerText = `${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`
-                document.querySelector(".chosenday").classList.remove("chosenday")
+                if (document.querySelector(".chosenday")) {
+                    document.querySelector(".chosenday").classList.remove("chosenday")
+                }
                 dayWrapper.classList.add("chosenday")
             })
             document.querySelector(`.row_${i}`).appendChild(dayWrapper)

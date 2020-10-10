@@ -27,8 +27,11 @@ window.onload = () => {
       else {
         firebase.auth().signOut()
         view.setErrorMessage('password_email_error', "Please verify your email")
-        view.setActiveScreen("logInPage")
+        view.setActiveScreen("loginPage")
       }
+    }
+    else {
+      view.setActiveScreen("loginPage")
     }
   })
 }
