@@ -91,20 +91,26 @@ controller.identifyMonthAndYearFollowing = (month, year) => {
     console.log(controller.currentMonth)
     console.log(controller.currentYear)
 }
-controller.filterScheduleOfDay = (day) => { // input là ngày cụ thể dạng new Date()
+controller.filterScheduleOfDay = (day, room) => { // input là ngày cụ thể dạng new Date() và 1 room cần lọc
     // console.log(Boolean(model.currentRoom.schedules))
-    if (model.currentRoom.schedules) {
+    if (room.schedules) {
         const dayStandard = (object) =>
             object.time.getDate() === day.getDate()
             && object.time.getMonth() === day.getMonth()
             && object.time.getFullYear() === day.getFullYear()
-        return model.currentRoom.schedules.filter(dayStandard)
+        return room.schedules.filter(dayStandard)
     }
     else {
         console.log("ra array rong ma")
         return []
     }
     // trả ra 1 array schedules bao gồm các schedules chứa ngày cần tìm
+}
+controller.filterScheduleOfPerson = (array) => { // input là 1 array chứa nhiều schedules
+    if (array.length > 0) {
+        const personCriteria = (object) => object.owner === model.currentUser.email
+        return array.filter(personCriteria)
+    }
 
 }
 controller.sortSchedulesOfDay = (array) => {
@@ -123,8 +129,7 @@ controller.sortSchedulesOfDay = (array) => {
             }
         }
     }
-    return array
-
+    return array // sort by time
 }
 controller.updateNewevent = (data) => {
     if (data.content.trim() === "")
@@ -218,14 +223,14 @@ controller.addUser = (dataUser) => {
         model.addUser(dataUser)
     }
 }
-controller.findCurrentAvailableColor = (room) => {
-    model.currentAvailableColor = [] 
-    for (user of room.users) {
+controller.findCurrentAvailableColor = (room) => { // đưa vào 1 room
+    model.currentAvailableColor = []
+    for (color of model.baseColor) {
         let check = true
-        for (color of model.baseColor) {
+        for (user of room.users) {
             if (user.color === color) check = false
         }
-        if (check) model.currentAvailableColor.push(user.color)
+        if (check) model.currentAvailableColor.push(color)
         // let index = model.currentAvailableColor.indexOf(user.color)
         // model.currentAvailableColor.splice(model.currentAvailableColor.indexOf(user.color),1)
     }

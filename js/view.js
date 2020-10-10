@@ -170,7 +170,8 @@ view.renderDayOfMonth = (month, year) => {
                 date.setMonth(month - 1)
                 console.log(date.toISOString())
                 model.currentDayOfRoom = date
-                model.currentEventDayOfRoom = controller.filterScheduleOfDay(date)
+                model.currentEventDayOfRoom = controller.filterScheduleOfDay(date,model.currentRoom)
+                model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
                 view.showCurrentSchedules()
                 document.querySelector('.date_header').innerText = `${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`
                 document.querySelector(".chosenday").classList.remove("chosenday")
@@ -184,9 +185,10 @@ view.renderDayOfMonth = (month, year) => {
 
 }
 view.showCurrentSchedules = () => {
-    let day = model.currentEventDayOfRoom || []
+    // let day = model.currentEventDayOfRoom || []
     document.querySelector(".family_list_timeline").innerHTML = ""
-    for (schedule of (model.currentEventDayOfRoom || [])) {
+    model.currentEventDayAndUserOfRoom = controller.sortSchedulesOfDay(model.currentEventDayAndUserOfRoom || [])
+    for (schedule of (model.currentEventDayAndUserOfRoom || [])) {
         view.addSchedule(schedule)
     }
     view.scrollToEndElement()
@@ -228,6 +230,7 @@ view.scrollToEndElement = () => {
     element.scrollTop = element.scrollHeight
 }
 view.showRooms = () => {
+    document.querySelector(".list_rooms").innerHTML = ""
     for (room of (model.rooms || [])) {
         view.addRoom(room)
     }
@@ -243,25 +246,27 @@ view.addRoom = (room) => {
     // click and render different room 
     roomWrapper.addEventListener('click', () => {
         model.currentRoom = room
+        model.currentUser = room.users[0]
         // model.rooms.filter(item => item.id === room.id)
-        console.log(model.currentRoom)
-        console.log(model.currentDayOfRoom)
+        // console.log(model.currentRoom)
+        // console.log(model.currentDayOfRoom)
         document.querySelector('.room.current').classList.remove('current')
         roomWrapper.classList.add('current')
-        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
+        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom,room)
+        model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
         model.currentAvailableColor = model.baseColor
         model.currentAvailableColor = controller.findCurrentAvailableColor(room)
         console.log(model.currentAvailableColor)
         console.log(model.baseColor)
-        console.log(controller.filterScheduleOfDay(model.currentDayOfRoom))
-        console.log(model.currentEventDayOfRoom)
+        console.log(model.currentEventDayAndUserOfRoom)
         view.showCurrentSchedules()
+        view.showCurrentUsersOfRoom()
     })
     document.querySelector('.list_rooms').appendChild(roomWrapper)
 }
 view.showCurrentUsersOfRoom = () => {
     document.querySelector(".list_users").innerHTML = ""
-    for (user of (model.currentRoom.users)) {
+    for (user of (model.currentRoom.users || [])) {
         view.addUser(user)
     }
 }
@@ -276,6 +281,10 @@ view.addUser = (user) => {
     userWrapper.innerText = user.title
     document.querySelector(".list_users").appendChild(userWrapper)
     userWrapper.addEventListener('click', () => {
-
+        document.querySelector('.family_member.current').classList.remove('current')
+        userWrapper.classList.add('current')
+        model.currentUser = user
+        model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
+        view.showCurrentSchedules()
     })
 }

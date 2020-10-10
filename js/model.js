@@ -8,7 +8,8 @@ model.currentUser = undefined // Nguời đang hiển thị lịch
 model.rooms = [];
 model.currentRoom = undefined // object chứa thông tin room
 model.currentDayOfRoom = new Date() // ngày cụ thể 
-model.currentEventDayOfRoom = [] //array chứa các schedules của ngày cụ thể 
+model.currentEventDayOfRoom = [] //array chứa các schedules của ngày cụ thể
+model.currentEventDayAndUserOfRoom = [] //array chứa các schedules của ngày và người cụ thể  
 model.register = async (data) => {
     try {
         const respone = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
@@ -78,9 +79,11 @@ model.getAndShowSchedulesAndRooms = async () => {
         //     schedule.time = new Date(schedule.time)
         // }
         // console.log(model.currentRoom)
-        model.currentEventDayOfRoom = controller.filterScheduleOfDay(new Date())
-        model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
-        console.log(model.currentEventDayOfRoom)
+        model.currentAvailableColor =controller.findCurrentAvailableColor(model.currentRoom)
+        model.currentEventDayOfRoom = controller.filterScheduleOfDay(new Date(), model.currentRoom)
+        model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
+        model.currentEventDayAndUserOfRoom = controller.sortSchedulesOfDay(model.currentEventDayAndUserOfRoom)
+        console.log(model.currentEventDayAndUserOfRoom)
         view.showCurrentSchedules()
         view.showCurrentUsersOfRoom()
     }
@@ -104,8 +107,8 @@ model.listenChange = () => {
                         for (let schedule of model.currentRoom.schedules) {
                             schedule.time = new Date(schedule.time)
                         }
-                        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom)
-                        model.currentEventDayOfRoom = controller.sortSchedulesOfDay(model.currentEventDayOfRoom)
+                        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom,model.currentRoom)
+                        model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
                         view.showCurrentSchedules()
                         view.showCurrentUsersOfRoom()
                     }
@@ -115,6 +118,7 @@ model.listenChange = () => {
                     view.addRoom(docData)
                 }
             }
+            view.showRooms()
         })
 }
 model.deleteEvent = (schedules) => { //input is array
