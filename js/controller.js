@@ -114,18 +114,20 @@ controller.filterScheduleOfPerson = (array) => { // input là 1 array chứa nhi
 
 }
 controller.sortSchedulesOfDay = (array) => {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = array.length - 1; j > i; j--) {
-            if (new Date(array[j].time).getHours() < new Date(array[j - 1].time).getHours()) {
-                let temp = array[j]
-                array[j] = array[j - 1]
-                array[j - 1] = temp
-            }
-            else if (new Date(array[j].time).getHours() == new Date(array[j - 1].time).getHours()
-                && new Date(array[j].time).getMinutes() < new Date(array[j - 1].time).getMinutes()) {
-                let temp = array[j]
-                array[j] = array[j - 1]
-                array[j - 1] = temp
+    if (array) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = array.length - 1; j > i; j--) {
+                if (new Date(array[j].time).getHours() < new Date(array[j - 1].time).getHours()) {
+                    let temp = array[j]
+                    array[j] = array[j - 1]
+                    array[j - 1] = temp
+                }
+                else if (new Date(array[j].time).getHours() == new Date(array[j - 1].time).getHours()
+                    && new Date(array[j].time).getMinutes() < new Date(array[j - 1].time).getMinutes()) {
+                    let temp = array[j]
+                    array[j] = array[j - 1]
+                    array[j - 1] = temp
+                }
             }
         }
     }

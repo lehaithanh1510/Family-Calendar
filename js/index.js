@@ -15,19 +15,18 @@ window.onload = () => {
     if (user) {
       model.currentLogInUser = {
         email: user.email,
-        displayName: user.displayName
+        title: user.displayName
       }
       model.currentUser = {
         email: user.email,
       }
       if (user.emailVerified) {   
         view.setActiveScreen('calendarPage')
-
       }
       else {
         firebase.auth().signOut()
-        view.setErrorMessage('password_email_error', "Please verify your email")
         view.setActiveScreen("loginPage")
+        view.setErrorMessage('password_email_error', "Please verify your email")
       }
     }
     else {
