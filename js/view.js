@@ -64,7 +64,17 @@ view.setActiveScreen = (page) => {
             })
             // click to render new room form  
             document.querySelector('.create_new_room').addEventListener('click', () => {
-                document.querySelector(".create_room_form").style.display = 'block'
+                if (model.rooms.length === 0) {
+                    model.createRoom("Your private schedule", {
+                        ...model.currentLogInUser,
+                        color: "FFFFFF",
+                    })
+                    // model.currentRoom = {
+                    //     ...model.currentLogInUser,
+                    //     color: "FFFFFF",
+                    // }
+                }
+                else document.querySelector(".create_room_form").style.display = 'block'
             })
             // click to cancel new room form
             document.querySelector(".cancel_room").addEventListener("click", () => {
@@ -105,12 +115,12 @@ view.setActiveScreen = (page) => {
             createRoomForm.addEventListener('submit', (e) => {
                 e.preventDefault()
                 const roomTitle = createRoomForm.roomTitle.value
+                model.currentAvailableColor = model.baseColor
                 const dataUser = {
                     email: model.currentLogInUser.email,
                     title: createRoomForm.myTitle.value,
                     color: model.currentAvailableColor[0]
                 }
-                model.currentAvailableColor = model.baseColor
                 model.currentAvailableColor.splice(0, 1)
                 controller.createRoom(roomTitle, dataUser)
                 document.querySelector(".create_room_form").style.display = 'none'
@@ -132,8 +142,6 @@ view.setActiveScreen = (page) => {
                 controller.addUser(dataUser)
             })
             document.querySelector(".add_user_form").style.display = 'none'
-
-
             model.listenChange()
             break;
     }
@@ -170,7 +178,7 @@ view.renderDayOfMonth = (month, year) => {
                 date.setMonth(month - 1)
                 console.log(date.toISOString())
                 model.currentDayOfRoom = date
-                model.currentEventDayOfRoom = controller.filterScheduleOfDay(date,model.currentRoom)
+                model.currentEventDayOfRoom = controller.filterScheduleOfDay(date, model.currentRoom)
                 model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
                 view.showCurrentSchedules()
                 document.querySelector('.date_header').innerText = `${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`
@@ -250,11 +258,11 @@ view.addRoom = (room) => {
         model.currentRoom = room
         model.currentUser = room.users[0]
         // model.rooms.filter(item => item.id === room.id)
-        // console.log(model.currentRoom)
+        console.log(model.currentRoom)
         // console.log(model.currentDayOfRoom)
         document.querySelector('.room.current').classList.remove('current')
         roomWrapper.classList.add('current')
-        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom,room)
+        model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom, room)
         model.currentEventDayAndUserOfRoom = controller.filterScheduleOfPerson(model.currentEventDayOfRoom)
         model.currentAvailableColor = model.baseColor
         model.currentAvailableColor = controller.findCurrentAvailableColor(room)
