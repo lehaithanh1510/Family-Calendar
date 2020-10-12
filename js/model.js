@@ -66,13 +66,13 @@ model.getAndShowSchedulesAndRooms = async () => {
     const response = await firebase.firestore().collection("rooms").where("userEmail", "array-contains", model.currentLogInUser.email).get()
     model.rooms = getManyDocument(response)
     console.log(model.rooms)
-    // if (model.rooms.length === 0) {
-    //     model.createRoom("Your private schedule", {
-    //         ...model.currentLogInUser,
-    //         color : "FFFFFF",
-    //     })
-    //     model.getAndShowSchedulesAndRooms()
-    // }
+    if (model.rooms.length === 0) {
+        model.createRoom("Your private schedule", {
+            ...model.currentLogInUser,
+            color : "FFFFFF",
+        })
+        model.getAndShowSchedulesAndRooms()
+    }
     for (let i = 0; i < model.rooms.length; i++) {
         for (schedule of (model.rooms[i].schedules || [])) {
             schedule.time = new Date(schedule.time)
