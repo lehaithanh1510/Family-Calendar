@@ -50,7 +50,7 @@ model.logIn = async (data) => {
             case ("auth/invalid-email"):
                 view.setErrorMessage('login_email_error', "This email address is not valid.")
             case ("auth/user-not-found"):
-                view / setErrorMessage('login_email_error', "There is no user corresponding to the given email.")
+                view.setErrorMessage('login_email_error', "There is no user corresponding to the given email.")
             case ("auth/wrong-password"):
                 view.setErrorMessage('password_email_error', "You have entered wrong password")
 
@@ -116,7 +116,7 @@ model.listenChange = () => {
                             }
                         }
                         model.currentRoom = docData
-                        for (let schedule of model.currentRoom.schedules) {
+                        for (let schedule of (model.currentRoom.schedules || [])) {
                             schedule.time = new Date(schedule.time)
                         }
                         model.currentEventDayOfRoom = controller.filterScheduleOfDay(model.currentDayOfRoom,model.currentRoom)

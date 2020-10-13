@@ -24,9 +24,9 @@ window.onload = () => {
         view.setActiveScreen('calendarPage')
       }
       else {
+        alert("Please verify your email")
         firebase.auth().signOut()
         view.setActiveScreen("loginPage")
-        view.setErrorMessage('password_email_error', "Please verify your email")
       }
     }
     else {
