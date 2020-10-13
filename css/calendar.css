@@ -45,9 +45,7 @@
 .create_event button {
     padding : 10px 25px;
     font-size: 15px;
-     
     border-radius: 50px;
-
 }
 .timeline_container .aside_left .room_container .room_header {
     font-size: 17px;
@@ -65,13 +63,17 @@
 
 }
 .timeline_container .aside_left .room_container .list_rooms {
+    height: 30vh;
     overflow-y: auto;
+
 }
 .timeline_container .aside_left .room_container .list_rooms .room {
     padding: 10px;
 }
 .timeline_container .current  {
+    color: black;
     background : #dbdbdb;
+    font-weight: 700;
 }
 .calendar {
     height : 40vh;
@@ -101,16 +103,20 @@
 .days_wrapper .days_of_week {
     padding : 4px ;
     text-align: center;
-     
-
 }
 .days_wrapper .today {
-    background-color :  #007cfd ;
+    background-color :  #007cfd !important ;
     width : 20px;
     height: 20px;
     border-radius: 50%;
-    color: #ffffff;
-     
+    color: #ffffff !important;
+}
+.days_wrapper .chosenday {
+    background-color :  #d2e3fc ;
+    color: #185abc;
+    width : 20px;
+    height: 20px;
+    border-radius: 50%;
 }
 .timeline_detail .user_navigation {
     display: flex;
@@ -120,10 +126,15 @@
     position: relative;
     align-items: center;
 }
+.timeline_detail .user_navigation .list_users {
+    display: flex;
+    overflow-x: auto;
+    width: 90%;
+    overflow-y: hidden;
+}
 .timeline_detail .user_navigation .add_user {
     position: absolute;
     right :1%;
-    
 }
 .timeline_detail .date_header {
     border : 1px solid #dbdbdb ;
@@ -144,26 +155,24 @@
     font-size: 25px;
 }
 .timeline_detail .user_navigation .family_member {
-    width : 10%;
+    width : 15%;
     height: 10vh;
-    /* border: red 1px solid ; */
-    font-size: 20px;
-     
-    color: black;
+    font-size: 20px;   
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+    text-align: center;
+    border: solid 1px black;
 }
 .timeline_detail .family_list_timeline {
+    height : 80vh;
     overflow-y:auto;
 }
 .timeline_detail .family_list_timeline .timeline_wrapper {
     display: flex;
     border-bottom: 1px solid #dbdbdb;
     align-items: center;
-
-
 }
 .timeline_detail .family_list_timeline .timeline_wrapper .time {
     width :7%;
@@ -181,7 +190,7 @@
     width :10px;
     height: 10px;
 }
-.create_user_form{
+.create_event_form{
     position: absolute;
     padding: 10px 10px 10px 30px;
     background-color: #dbdbdb;
@@ -191,29 +200,90 @@
     width :30%;
     display: none;
 }
-.create_user_form .time_wrapper {
+.create_event_form .time_wrapper {
     display: flex;
 }
-.create_user_form .time_wrapper input {
+.create_event_form .time_wrapper input {
     width : 90%;
 }
-.create_user_form  .basic_icon {
+.create_event_form .basic_icon {
     display: flex;
     align-items: center;
     margin-right: 10px;
 }
-.create_user_form .work {
+.create_event_form .work {
     padding: 0px 0px 0px 25px;
 }
-.create_user_form .description_wrapper {
+.create_event_form .description_wrapper {
     display: flex;
     flex-direction: row;
 }
-.create_user_form .description_wrapper input {
+.create_event_form .description_wrapper input {
     width :165%;
     height : 15vh;
 }
-.create_user_form .cancel {
+.create_room_form{
+    position: absolute;
+    padding: 10px 10px 10px 30px;
+    background-color: #dbdbdb;
+    top:20vh;
+    left: 35%;
+    opacity: 1;
+    width :30%;
+    display: none;
+}
+.create_room_form .basic_icon {
+    width : 5%;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.room_title_wrapper {
+    display: flex;
+}
+.my_title_wrapper {
+    display: flex;
+}
+.create_room_form .title {
+    width : 90%;
+}
+.add_user_form{
+    position: absolute;
+    padding: 10px 10px 10px 20px;
+    background-color: #dbdbdb;
+    top:30vh;
+    left: 40%;
+    opacity: 1;
+    width :30%;
+    display: none;
+}
+.add_user_form .time_wrapper {
+    display: flex;
+}
+.add_user_form .time_wrapper input {
+    width : 90%;
+}
+.add_user_form  .basic_icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width :5%;
+}
+
+.add_user_form .adduser_input_wrapper {
+    display: flex;
+    margin : 5%;
+    /* flex-direction: row; */
+}
+
+.add_user_form  input {
+    width :100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb
+    /* height : 15vh; */
+}
+.add_user_form .cancel {
     background-color: red;
     color: white;
     padding : 7px 10px;

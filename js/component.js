@@ -29,7 +29,7 @@ component.registerPage = `
                 </div>
                 <div class="form_action">
                     <div>Already have an account ?<span class="cursor_pointer" id="login_change"> Log in </span></div>
-                    <button class="btn cursor_pointer"> Register </button>
+                    <button class="btn cursor_pointer" type="submit"> Register </button>
                 </div>
             </form>
         </div>
@@ -48,30 +48,95 @@ component.loginPage = `
                 </div>
                 <div class="form_action">
                     <div>Don't have any account ?<span class="cursor_pointer" id="register_change"> Register </span></div>
-                    <button class="btn cursor_pointer"> Log in </button>
+                    <button class="btn cursor_pointer" type="submit"> Log in </button>
                 </div>
             </form>
         </div>
 `
 component.calendarPage =`
-<div class="create_user_form">
-<form id="create_user_form">
-    <div class="input_wrapper work">
-        <input type="text " placeholder="Add email" name="email">
-        <div class="error" id="email_error"></div>
-    </div>
-    <div class="input_wrapper work">
-        <input type="text " placeholder="title" name="title">
-        <div class="error" id="title_error"></div>
-    </div>
-    <div class="form_action">
-        <button class="cursor_pointer cancel" id="adduser_redirect_to_calendar" type="button"> Cancel </button>
-        <button class="btn cursor_pointer" type="submit"> Add </button>
-    </div>
-</form>
-</div>
+<div class="add_user_form">
+            <form id="add_user_form">
+                <div class="adduser_input_wrapper">
+                    <div class="basic_icon"><i class="fas fa-users"></i> </div>
+                    <input type="text " placeholder="User email" name="email">
+                    <div class="error" id="new_user_email_error"></div>
+                </div>
+                <div class="adduser_input_wrapper">
+                    <div class="basic_icon"><i class="far fa-file-alt"></i></div>
+                    <input type="text " placeholder="User title" name="title">
+                    <div class="error" id="new_user_title_error"></div>
+                </div>
+                <div class="form_action">
+                    <button class="cursor_pointer cancel cancel_add_user" type="button"> Cancel
+                    </button>
+                    <button class="btn cursor_pointer" type="submit"> Add </button>
+                </div>
+            </form>
+        </div> 
+<div class="create_room_form">
+            <form id="create_room_form">
+                <div class="room_title_wrapper">
+                    <div class="basic_icon"><i class="fas fa-user"></i></div>
+                    <div class="input_wrapper title">
+                        <input type="text " placeholder="Room title" name="roomTitle">
+                        <div class="error" id="create_room_title_error"></div>
+                    </div>
+                </div>
+                <div class="my_title_wrapper">
+                    <div class="basic_icon"><i class="fas fa-home"></i></div>
+                    <div class="input_wrapper title">
+                        <input type="text " placeholder="My title" name="myTitle">
+                        <div class="error" id="create_my_title_error"></div>
+                    </div>
+                </div>
+                <div class="form_action">
+                    <button class="cursor_pointer cancel cancel_room" type="button"> Cancel </button>
+                    <button class="btn cursor_pointer" type="submit"> Save </button>
+                </div>
+            </form>
+        </div>
+<div class="create_event_form">
+            <form id="create_event_form">
+                <div class="input_wrapper work">
+                    <input type="text " placeholder="Add Work" name="work">
+                    <div class="error" id="work_error"></div>
+                </div>
+                <div class="time_wrapper">
+                    <div class="basic_icon"> <i class="far fa-clock"></i> </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Hour:" name="hour">
+                        <div class="error" id="hour_error"></div>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Min:" name="minute">
+                        <div class="error" id="minute_error"></div>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Day:" name="day">
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Month:" name="month">
+                        <div class="error" id="month_error"></div>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="number" placeholder="Year:" name="year">
+                        <div class="error" id="year_error"></div>
+                    </div>
+                </div>
+                <div class="description_wrapper">
+                    <div class="basic_icon"> <i class="far fa-comment-dots"></i></div>
+                    <div class="input_wrapper">
+                        <input type="text" placeholder="Add Description:" name="description">
+                    </div>
+                </div>
+                <div class="form_action">
+                    <button class="cursor_pointer cancel cancel_event" type="button"> Cancel </button>
+                    <button class="btn cursor_pointer " type="submit"> Save </button>
+                </div>
+            </form>
+        </div>
 <div class="timeline_container">
-            <div class="header"> Family Calendar</div>
+            <div class="header"> Family Calendar <button class="btn cursor_pointer log_out"><i class="fas fa-sign-out-alt"></i></button></div>
             <div class="main">
                 <div class="aside_left">
                     <div class="create_event">
@@ -79,7 +144,7 @@ component.calendarPage =`
                     </div>
                     <div class="calendar">
                         <div class="month_navigation">
-                            <div class="month">Tháng 9,2020</div>
+                            <div id="month_header">Tháng 9,2020</div>
                             <button class="cursor_pointer previous_month"> <i class="fas fa-chevron-left"></i></button>
                             <button class="cursor_pointer next_month"> <i class="fas fa-chevron-right"></i> </button>
                         </div>
@@ -96,90 +161,32 @@ component.calendarPage =`
                                         <th class="days_of_week">Sat </th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-                                    <tr> 
-                                        <td class="days_of_week">  </td>
-                                        <td class="days_of_week">  </td>
-                                        <td class="days_of_week"> 1 </td>
-                                        <td class="days_of_week"> 2 </td>
-                                        <td class="days_of_week"> 3 </td>
-                                        <td class="days_of_week"> 4 </td>
-                                        <td class="days_of_week"> 5 </td>
-                                    </tr>
-                                    <tr> 
-                                        <td class="days_of_week"> 6 </td>
-                                        <td class="days_of_week"> 7 </td>
-                                        <td class="days_of_week"> 8 </td>
-                                        <td class="days_of_week"> 9 </td>
-                                        <td class="days_of_week"> 10 </td>
-                                        <td class="days_of_week"> 11 </td>
-                                        <td class="days_of_week"> 12 </td>
-                                    </tr>
+                                <tbody class = "days">
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="room_container">
                         <div class="room_header"> My room
-                            <button class="btn create_new_room cursor_pointer" id="create_room"> <i
+                            <button class="btn create_new_room cursor_pointer"> <i
                                     class="fas fa-folder-plus"></i></button>
                         </div>
                         <div class="list_rooms">
-                           
+                            
                         </div>
                     </div>
                 </div>
                 <div class="timeline_detail">
-                   <div> 
                     <div class="user_navigation">
-                    
+                        <div class="list_users"> </div>
+                        <button class="btn add_user cursor_pointer "> <i class="fas fa-user-plus"></i></button>
                     </div>
-                    <button class="btn add_user cursor_pointer " id ="add_user_submit"> <i class="fas fa-user-plus"></i></button>
-                    </div>
-                    <div class="date_navigation">
-                        <button class="cursor_pointer previous_day"> <i class="fas fa-chevron-left"></i> </button>
-                        <div class="date"> 23 tháng 9 năm 2020 </div>
-                        <button class="cursor_pointer next_day"> <i class="fas fa-chevron-right"></i> </button>
-                    </div>
+                    <div class="date_header"> 23 tháng 9 năm 2020 </div>
                     <div class="family_list_timeline">
-                        <div class="timeline_wrapper">
-                            <div class="time"> 7AM </div>
-                            <div class="content">Get up</div>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 7.30AM </div>
-                            <div class="content">Breakfast</div>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 8AM </div>
-                            <div class="content">Go to school</div>
-                        </div>
-                        <div class="timeline_wrapper">
-                            <div class="time"> 12AM </div>
-                            <div class="content">Go home</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-`
-component.createRoomPage = `
-<div class="create_room_wrapper">
-        <div class="login_header">Family Calendar</div>
-        <form id="create_room_form">
-            <h4>Create a new room</h4>
-            <div class="input_wrapper">
-                <input type="text" placeholder="Room title" name="title">
-                <div class="error" id="create_room_title_error"></div>
-                
-            </div>
-            <div class="input_wrapper">
-            <input type="text" placeholder="My title" name="Mytitle">
-            <div class="error" id="create_my_room_title_error"></div>
-            
-        </div>
-            <button class="btn">Save</button>
-            <button class="btn_bg_light" type="button" id="redirect_to_calendar">Cancel</button>
-        </form>
-    </div>
 `
